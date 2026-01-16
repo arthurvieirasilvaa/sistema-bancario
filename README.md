@@ -42,18 +42,30 @@ possa facilitar a evolução para versões mais avançadas, com banco de dados e
 ```
 src
 └── br
-└── com
-└── arthur
-└── banco
-├── application
-│   └── Main.java
-├── domain
-│   ├── Cliente.java
-│   ├── Conta.java
-│   ├── ContaCorrente.java
-│   ├── ContaPoupanca.java
-├── service
-│   ├── Sistema.java
+    └── com
+        └── arthur
+            └── banco
+                ├── application
+                │   ├── Main.java
+                │   ├── Menu.java
+                │   └── UI.java
+                ├── domain
+                │   ├── exception
+                │   │   ├── ClienteInexistenteException.java
+                │   │   ├── ContaInexistenteException.java
+                │   │   ├── CpfDuplicadoException.java
+                │   │   └── SaldoInsuficienteException.java
+                │   └── model
+                │       ├── Cliente.java
+                │       ├── Conta.java
+                │       ├── ContaCorrente.java
+                │       ├── ContaPoupanca.java
+                │       └── Transacao.java
+                └── service
+                    ├── ClienteService.java
+                    ├── ContaService.java
+                    └── TransacoesService.java
+
 ```
 
 ## 🚀 Como Executar
