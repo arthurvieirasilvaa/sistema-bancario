@@ -1,10 +1,12 @@
-package br.com.arthur.banco.domain;
+package br.com.arthur.banco.domain.model;
+
+import br.com.arthur.banco.domain.exception.SaldoInsuficienteException;
 
 public abstract class Conta {
-    private String numero;
-    private String agencia;
-    private double saldo;
-    private Cliente cliente;
+    protected String numero;
+    protected String agencia;
+    protected double saldo;
+    protected Cliente cliente;
 
     public Conta(String numero, String agencia, double saldo, Cliente cliente) {
         this.numero = numero;
@@ -12,28 +14,19 @@ public abstract class Conta {
         this.saldo = saldo;
         this.cliente = cliente;
     }
-
-    public void verInformacoes() {
-        System.out.println("###### Dados da Conta ######");
-        System.out.println("Número: "+this.numero);
-        System.out.println("Agência: "+this.agencia);
-        System.out.println("Saldo: R$"+this.saldo);
-        System.out.println("Nome do cliente: "+this.cliente.getNome());
-        System.out.println("-----------------------------------");
-    }
-
-    public void depositar(double valor) {
+    
+    public void verificaValor(double valor) {
         if(valor <= 0) {
             throw new IllegalArgumentException("O valor depositado deve ser maior do que 0");
         }
-
-        this.saldo += valor;
-        System.out.println("O valor de R$"+valor+" foi depositado com sucesso!");
     }
 
-    public abstract void sacar(double valor);
+    public void depositar(double valor) {
+        verificaValor(valor);
+        this.saldo += valor;
+    }
 
-
+    public abstract void sacar(double valor) throws SaldoInsuficienteException;
 
     public String getNumero() {
         return numero;

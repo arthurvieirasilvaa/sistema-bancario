@@ -1,4 +1,4 @@
-package br.com.arthur.banco.domain;
+package br.com.arthur.banco.domain.model;
 
 public class Cliente {
     private String nome;
@@ -9,12 +9,6 @@ public class Cliente {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
-    }
-
-    public void verInformacoes() {
-        System.out.println("Nome: "+this.nome);
-        System.out.println("CPF: "+this.cpf);
-        System.out.println("Data de nascimento: "+this.dataNascimento);
     }
 
     public String getNome() {
