@@ -1,9 +1,13 @@
 package br.com.arthur.banco.domain.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cliente {
     private String nome;
     private String cpf;
     private String dataNascimento;
+    private List<Conta> contas = new ArrayList<>();
 
     public Cliente(String nome, String cpf, String dataNascimento) {
         this.nome = nome;
@@ -33,5 +37,13 @@ public class Cliente {
 
     public void setDataNascimento(String dataNascimento) {
         this.dataNascimento = dataNascimento;
+    }
+
+    public List<Conta> getContas() {
+        return this.contas;
+    }
+
+    public void setContas(List<Conta> contas) {
+        this.contas = contas;
     }
 }

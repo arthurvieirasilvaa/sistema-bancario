@@ -45,7 +45,7 @@ public class ContaService {
         List<String> extrato = new ArrayList<>();
 
         for(Transacao transacao : conta.getTransacoes()) {
-            extrato.add(transacao);
+            extrato.add(transacao.toString());
         }
 
         return extrato;
