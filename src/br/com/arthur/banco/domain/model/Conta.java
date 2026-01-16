@@ -2,11 +2,14 @@ package br.com.arthur.banco.domain.model;
 
 import br.com.arthur.banco.domain.exception.SaldoInsuficienteException;
 
+import java.util.ArrayList;
+
 public abstract class Conta {
     protected String numero;
     protected String agencia;
     protected double saldo;
     protected Cliente cliente;
+    protected ArrayList<Transacao> transacoes = new ArrayList<>();
 
     public Conta(String numero, String agencia, double saldo, Cliente cliente) {
         this.numero = numero;
@@ -59,5 +62,13 @@ public abstract class Conta {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    public ArrayList<Transacao> getTransacoes() {
+        return transacoes;
+    }
+
+    public void setTransacoes(ArrayList<Transacao> transacoes) {
+        this.transacoes = transacoes;
     }
 }

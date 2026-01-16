@@ -5,8 +5,9 @@ import br.com.arthur.banco.domain.exception.SaldoInsuficienteException;
 public class ContaCorrente extends Conta {
     private double limite;
 
-    public ContaCorrente(String numero, String agencia, double saldo, Cliente cliente) {
+    public ContaCorrente(String numero, String agencia, double saldo, Cliente cliente, double limite) {
         super(numero, agencia, saldo, cliente);
+        this.limite = limite;
     }
 
     @Override
@@ -18,5 +19,13 @@ public class ContaCorrente extends Conta {
         }
 
         saldo -= valor;
+    }
+
+    public double getLimite() {
+        return limite;
+    }
+
+    public void setLimite(double limite) {
+        this.limite = limite;
     }
 }

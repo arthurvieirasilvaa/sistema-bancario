@@ -9,7 +9,7 @@ public class TransacoesService {
     }
 
     public void sacar(Conta conta, double valor) throws SaldoInsuficienteException {
-        System.out.println("R$"+valor+" sacado com sucesso da conta!");
+        conta.sacar(valor);
     }
 
     public void transferir(Conta origem, Conta destino, double valor) throws SaldoInsuficienteException {
