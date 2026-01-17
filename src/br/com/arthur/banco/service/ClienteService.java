@@ -7,7 +7,6 @@ import br.com.arthur.banco.domain.model.Cliente;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ClienteService {
     private List<Cliente> clientes = new ArrayList<>();

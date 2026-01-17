@@ -1,5 +1,8 @@
 package br.com.arthur.banco.application;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class UI {
@@ -60,6 +63,28 @@ public class UI {
             } catch (NumberFormatException e) {
                 e.printStackTrace();
                 System.out.println("Opção inválida! Digite um número.");
+            }
+        }
+    }
+
+    public String lerTexto() {
+        String texto = "";
+        do {
+            texto = scanner.nextLine();
+        } while(texto.isEmpty());
+
+        return texto;
+    }
+
+    public LocalDate lerData() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        while (true) {
+            try {
+                return LocalDate.parse(scanner.nextLine(), dateTimeFormatter);
+            } catch (DateTimeParseException e) {
+                e.printStackTrace();
+                System.out.println("Formato de data inválida! Use dd/MM/yyyy");
             }
         }
     }
