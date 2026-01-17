@@ -2,14 +2,17 @@ package br.com.arthur.banco.domain.model;
 
 import br.com.arthur.banco.domain.exception.SaldoInsuficienteException;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Conta {
     protected String numero;
     protected String agencia;
     protected double saldo;
     protected Cliente cliente;
-    protected ArrayList<Transacao> transacoes = new ArrayList<>();
+    protected List<Transacao> transacoes = new ArrayList<>();
 
     public Conta(String numero, String agencia, double saldo, Cliente cliente) {
         this.numero = numero;
@@ -27,7 +30,7 @@ public abstract class Conta {
     public void depositar(double valor) {
         verificaValor(valor);
         this.saldo += valor;
-
+        transacoes.add(new Transacao("Depósito", valor, LocalDate.now(ZoneId.of("America/Sao_Paulo"))));
     }
 
     public abstract void sacar(double valor) throws SaldoInsuficienteException;
@@ -64,11 +67,11 @@ public abstract class Conta {
         this.cliente = cliente;
     }
 
-    public ArrayList<Transacao> getTransacoes() {
-        return transacoes;
+    public List<Transacao> getTransacoes() {
+        return this.transacoes;
     }
 
-    public void setTransacoes(ArrayList<Transacao> transacoes) {
+    public void setTransacoes(List<Transacao> transacoes) {
         this.transacoes = transacoes;
     }
 }

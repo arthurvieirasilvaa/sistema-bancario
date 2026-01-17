@@ -2,6 +2,9 @@ package br.com.arthur.banco.domain.model;
 
 import br.com.arthur.banco.domain.exception.SaldoInsuficienteException;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 public class ContaCorrente extends Conta {
     private double limite;
 
@@ -18,7 +21,8 @@ public class ContaCorrente extends Conta {
             throw new SaldoInsuficienteException("O valor fornecido para sacar é maior do que o permitido!");
         }
 
-        saldo -= valor;
+        this.saldo -= valor;
+        this.transacoes.add(new Transacao("Saque Conta Corrente", valor, LocalDate.now(ZoneId.of("America/Sao_Paulo"))));
     }
 
     public double getLimite() {

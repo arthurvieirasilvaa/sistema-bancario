@@ -1,11 +1,13 @@
 package br.com.arthur.banco.domain.model;
 
+import java.time.LocalDate;
+
 public class Transacao {
     private String tipo;
     private double valor;
-    private String data;
+    private LocalDate data;
 
-    public Transacao(String tipo, double valor, String data) {
+    public Transacao(String tipo, double valor, LocalDate data) {
         this.tipo = tipo;
         this.valor = valor;
         this.data = data;
@@ -27,11 +29,11 @@ public class Transacao {
         this.valor = valor;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 

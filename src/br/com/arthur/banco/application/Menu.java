@@ -1,53 +1,124 @@
 package br.com.arthur.banco.application;
 
-import br.com.arthur.banco.service.ContaService;
-
 public class Menu {
-    private ContaService contaService;
-    private UI ui;
+    private final UI ui;
+    private final ClienteController clienteController;
+    private final ContaController contaController;
+    private final TransacaoController transacaoController;
 
-    public Menu(ContaService contaService, UI ui) {
-        this.contaService = contaService;
+    public Menu(UI ui,
+                ClienteController clienteController,
+                ContaController contaController,
+                TransacaoController transacaoController) {
         this.ui = ui;
+        this.clienteController = clienteController;
+        this.contaController = contaController;
+        this.transacaoController = transacaoController;
     }
 
     public void executar() {
         boolean executando = true;
 
         while(executando) {
-            ui.exibirMenu();
+            ui.exibirMenuPrincipal();
             short opcao = ui.lerOpcao();
 
             switch(opcao) {
                 case 1:
-                    ui.cadastrarCliente();
+                    abrirMenuClientes();
                     break;
                 case 2:
-                    ui.visualizarDadosCliente();
+                    abrirMenuContas();
                     break;
                 case 3:
-                    ui.criarContaCorrente();
+                    abrirMenuTransacoes();
+                    break;
+                case UI.OPCAO_SAIR:
+                    executando = false;
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+    }
+
+    public void abrirMenuClientes() {
+        boolean isMenuClientesAberto = true;
+
+        while(isMenuClientesAberto) {
+            ui.exibirMenuClientes();
+            short opcao = ui.lerOpcao();
+
+            switch(opcao) {
+                case 1:
+                    clienteController.cadastrarCliente();
+                    break;
+                case 2:
+                    clienteController.removerCliente();
+                    break;
+                case 3:
+                    clienteController.visualizarDadosCliente();
+                    break;
+                case UI.OPCAO_VOLTAR:
+                    isMenuClientesAberto = false;
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+    }
+
+    public void abrirMenuContas() {
+        boolean isMenuContasAberto = true;
+
+        while(isMenuContasAberto) {
+            ui.exibirMenuContas();
+            short opcao = ui.lerOpcao();
+
+            switch(opcao) {
+                case 1:
+                    contaController.criarContaCorrente();
+                    break;
+                case 2:
+                    contaController.criarContaPoupanca();
+                    break;
+                case 3:
+                    contaController.removerConta();
                     break;
                 case 4:
-                    ui.criarContaPoupanca();
+                    contaController.consultarSado();
                     break;
                 case 5:
-                    ui.depositar();
+                    contaController.visualizarExtrato();
                     break;
-                case 6:
-                    ui.sacar();
+                case UI.OPCAO_VOLTAR:
+                    isMenuContasAberto = false;
                     break;
-                case 7:
-                    ui.realizarTransferencia();
+                default:
+                    System.out.println("Opção inválida!");
+            }
+        }
+    }
+
+    public void abrirMenuTransacoes() {
+        boolean isMenuTransacoesAberto = true;
+
+        while(isMenuTransacoesAberto) {
+            ui.exibirMenuTransacoes();
+            short opcao = ui.lerOpcao();
+
+            switch(opcao) {
+                case 1:
+                    transacaoController.depositar();
                     break;
-                case 8:
-                    ui.consultarSado();
+                case 2:
+                    transacaoController.sacar();
                     break;
-                case 9:
-                    ui.visualizarExtrato();
+                case 3:
+                    transacaoController.realizarTransferencia();
                     break;
-                case 0:
-                    executando = false;
+                case UI.OPCAO_VOLTAR:
+                    isMenuTransacoesAberto = false;
                     break;
                 default:
                     System.out.println("Opção inválida!");

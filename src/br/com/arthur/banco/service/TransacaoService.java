@@ -3,7 +3,7 @@ package br.com.arthur.banco.service;
 import br.com.arthur.banco.domain.exception.SaldoInsuficienteException;
 import br.com.arthur.banco.domain.model.Conta;
 
-public class TransacoesService {
+public class TransacaoService {
     public void depositar(Conta conta, double valor) {
         conta.depositar(valor);
     }

@@ -4,8 +4,10 @@ import br.com.arthur.banco.domain.exception.ClienteInexistenteException;
 import br.com.arthur.banco.domain.exception.CpfDuplicadoException;
 import br.com.arthur.banco.domain.model.Cliente;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class ClienteService {
     private List<Cliente> clientes = new ArrayList<>();
@@ -18,7 +20,7 @@ public class ClienteService {
         }
     }
 
-    public Cliente cadastrarCliente(String nome, String cpf, String dataNascimento) {
+    public Cliente cadastrarCliente(String nome, String cpf, LocalDate dataNascimento) {
         validarCpf(cpf);
         Cliente cliente = new Cliente(nome, cpf, dataNascimento);
         clientes.add(cliente);

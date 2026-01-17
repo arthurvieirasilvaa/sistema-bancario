@@ -1,15 +1,16 @@
 package br.com.arthur.banco.domain.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente {
     private String nome;
     private String cpf;
-    private String dataNascimento;
+    private LocalDate dataNascimento;
     private List<Conta> contas = new ArrayList<>();
 
-    public Cliente(String nome, String cpf, String dataNascimento) {
+    public Cliente(String nome, String cpf, LocalDate dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
@@ -31,11 +32,11 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public String getDataNascimento() {
+    public LocalDate getDataNascimento() {
         return this.dataNascimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
+    public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
