@@ -25,6 +25,13 @@ public class ClienteService {
 
         return cliente;
     }
+    
+    
+    public Cliente removerCliente(String cpf) {
+        Cliente cliente = buscarCliente(cpf);
+        clientes.remove(cliente);
+        return cliente;
+    }
 
     public Cliente buscarCliente(String cpf) {
         for(Cliente cliente : clientes) {

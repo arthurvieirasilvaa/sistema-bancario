@@ -25,6 +25,12 @@ public class ContaService {
         return contaPoupanca;
     }
 
+    public Conta removerConta(String numero) {
+        Conta conta = buscarConta(numero);
+        contas.remove(conta);
+        return conta;
+    }
+
     public Conta buscarConta(String numero) {
         for(Conta conta : contas) {
             if(conta.getNumero().equals(numero)) {
