@@ -3,6 +3,7 @@ package br.com.arthur.banco.application;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UI {
@@ -82,9 +83,21 @@ public class UI {
         while (true) {
             try {
                 return LocalDate.parse(scanner.nextLine(), dateTimeFormatter);
-            } catch (DateTimeParseException e) {
+            }catch (DateTimeParseException e) {
                 e.printStackTrace();
                 System.out.println("Formato de data inválida! Use dd/MM/yyyy");
+            }
+        }
+    }
+
+    public double lerDecimal() {
+        while (true) {
+            try {
+                double numero = scanner.nextDouble();
+                return numero;
+            }catch (InputMismatchException e) {
+                e.printStackTrace();
+                System.out.println("Entrada inválida! Informe um número.");
             }
         }
     }

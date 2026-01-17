@@ -12,7 +12,7 @@ public class ClienteService {
     private List<Cliente> clientes = new ArrayList<>();
 
     public void validarCpf(String cpf) {
-        for(Cliente cliente : clientes) {
+        for(Cliente cliente : this.clientes) {
             if(cliente.getCpf().equals(cpf)) {
                 throw new CpfDuplicadoException("Já existe um cliente cadastrado com o CPF "+cpf);
             }

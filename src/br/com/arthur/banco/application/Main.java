@@ -1,12 +1,17 @@
 package br.com.arthur.banco.application;
 
-import java.util.Scanner;
+import br.com.arthur.banco.service.ClienteService;
+import br.com.arthur.banco.service.ContaService;
+import br.com.arthur.banco.service.TransacaoService;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String texto;
-        texto= scanner.nextLine();
-        System.out.println(texto);
+        UI ui = new UI();
+
+        ClienteService clienteService = new ClienteService();
+        ContaService contaService = new ContaService();
+        TransacaoService transacaoService = new TransacaoService();
+
+        ClienteController clienteController = new ClienteController(ui, clienteService);
     }
 }
