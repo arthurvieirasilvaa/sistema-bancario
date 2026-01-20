@@ -20,9 +20,9 @@ public class UI {
         System.out.println("1) Acessar menu clientes");
         System.out.println("2) Acessar menu contas");
         System.out.println("3) Acessar menu transações");
-        System.out.println("0) Sair;");
+        System.out.println("0) Sair");
         System.out.println("------------------------------------");
-        System.out.println("Digite uma opção: ");
+        System.out.print("Digite uma opção: ");
     }
 
     public void exibirMenuClientes() {
@@ -32,7 +32,7 @@ public class UI {
         System.out.println("3) Visualizar dados do cliente");
         System.out.println("-1) Voltar");
         System.out.println("------------------------------------");
-        System.out.println("Digite uma opção: ");
+        System.out.print("Digite uma opção: ");
     }
 
     public void exibirMenuContas() {
@@ -44,7 +44,7 @@ public class UI {
         System.out.println("5) Visualizar extrato");
         System.out.println("-1) Voltar");
         System.out.println("------------------------------------");
-        System.out.println("Digite uma opção: ");
+        System.out.print("Digite uma opção: ");
     }
 
     public void exibirMenuTransacoes() {
@@ -54,7 +54,7 @@ public class UI {
         System.out.println("3) Realizar transferência");
         System.out.println("-1) Voltar");
         System.out.println("------------------------------------");
-        System.out.println("Digite uma opção: ");
+        System.out.print("Digite uma opção: ");
     }
 
     public short lerOpcao() {
@@ -94,6 +94,7 @@ public class UI {
         while (true) {
             try {
                 double numero = scanner.nextDouble();
+                scanner.nextLine();
                 return numero;
             }catch (InputMismatchException e) {
                 e.printStackTrace();

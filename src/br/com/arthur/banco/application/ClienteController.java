@@ -18,13 +18,13 @@ public class ClienteController {
 
     public void cadastrarCliente() {
         try {
-            System.out.println("Nome: ");
+            System.out.print("Nome: ");
             String nome = this.ui.lerTexto();
 
-            System.out.println("CPF: ");
+            System.out.print("CPF: ");
             String cpf = this.ui.lerTexto();
 
-            System.out.println("Data de nascimento (dd/MM/yyyy): ");
+            System.out.print("Data de nascimento (dd/MM/yyyy): ");
             LocalDate dataNascimento = this.ui.lerData();
 
             Cliente cliente = this.clienteService.cadastrarCliente(nome, cpf, dataNascimento);
@@ -41,7 +41,7 @@ public class ClienteController {
 
     public void removerCliente() {
         try {
-            System.out.println("Informe o CPF do cliente que você deseja remover: ");
+            System.out.print("Informe o CPF do cliente que você deseja remover: ");
             String cpf = this.ui.lerTexto();
 
             Cliente cliente = this.clienteService.removerCliente(cpf);
@@ -58,7 +58,7 @@ public class ClienteController {
 
     public void visualizarDadosCliente() {
         try {
-            System.out.println("Informe o CPF do cliente que você obter os dados: ");
+            System.out.print("Informe o CPF do cliente que você obter os dados: ");
             String cpf = this.ui.lerTexto();
 
             Cliente cliente = this.clienteService.buscarCliente(cpf);

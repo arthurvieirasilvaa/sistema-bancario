@@ -13,5 +13,10 @@ public class Main {
         TransacaoService transacaoService = new TransacaoService();
 
         ClienteController clienteController = new ClienteController(ui, clienteService);
+        ContaController contaController = new ContaController(ui, contaService, clienteService);
+        TransacaoController transacaoController = new TransacaoController(ui, transacaoService, contaService);
+
+        Menu menu = new Menu(ui, clienteController, contaController, transacaoController);
+        menu.executar();
     }
 }

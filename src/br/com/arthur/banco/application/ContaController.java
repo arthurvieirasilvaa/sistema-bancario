@@ -21,7 +21,7 @@ public class ContaController {
     }
 
     private Cliente buscarCliente() {
-        System.out.println("CPF do cliente: ");
+        System.out.print("CPF do cliente: ");
         String cpf = this.ui.lerTexto();
 
         return this.clienteService.buscarCliente(cpf);
@@ -29,15 +29,15 @@ public class ContaController {
 
     public void criarContaCorrente() {
         try {
-            System.out.println("Agência: ");
+            System.out.print("Agência: ");
             String agencia = this.ui.lerTexto();
 
             Cliente cliente = buscarCliente();
 
-            System.out.println("Limite da conta: ");
+            System.out.print("Limite da conta: ");
             double limite = this.ui.lerDecimal();
 
-            Conta conta = contaService.criarContaCorrente(agencia, cliente, limite);
+            Conta conta = this.contaService.criarContaCorrente(agencia, cliente, limite);
             System.out.println("A conta corrente da agência "+conta.getAgencia()+" e número "+conta.getNumero()+" foi criada com sucesso!");
         }catch (ClienteInexistenteException e) {
             e.printStackTrace();
@@ -51,12 +51,12 @@ public class ContaController {
 
     public void criarContaPoupanca() {
         try {
-            System.out.println("Agência: ");
+            System.out.print("Agência: ");
             String agencia = this.ui.lerTexto();
 
             Cliente cliente = buscarCliente();
 
-            Conta conta = contaService.criarContaPoupanca(agencia, cliente);
+            Conta conta = this.contaService.criarContaPoupanca(agencia, cliente);
             System.out.println("A conta poupança da agência "+conta.getAgencia()+" e número "+conta.getNumero()+" foi criada com sucesso!");
         }catch (ClienteInexistenteException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class ContaController {
 
     public void removerConta() {
         try {
-            System.out.println("Informe o número da conta que será removida: ");
+            System.out.print("Informe o número da conta que será removida: ");
             String numero = this.ui.lerTexto();
 
             Conta conta = this.contaService.removerConta(numero);
@@ -86,7 +86,7 @@ public class ContaController {
 
     public void consultarSado() {
         try {
-            System.out.println("Informe o número da conta que você deseja consultar o saldo: ");
+            System.out.print("Informe o número da conta que você deseja consultar o saldo: ");
             String numero = this.ui.lerTexto();
 
             double saldo = this.contaService.consultarSaldo(numero);
@@ -102,7 +102,7 @@ public class ContaController {
 
     public void visualizarExtrato() {
         try {
-            System.out.println("Informe o número da conta que você deseja visualizar o extrato: ");
+            System.out.print("Informe o número da conta que você deseja visualizar o extrato: ");
             String numero = this.ui.lerTexto();
 
             List<String> extrato = this.contaService.visualizarExtrato(numero);
