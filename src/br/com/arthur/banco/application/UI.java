@@ -57,13 +57,16 @@ public class UI {
         System.out.print("Digite uma opção: ");
     }
 
-    public short lerOpcao() {
+    public void exibirMensagem(String mensagem) {
+        System.out.print(mensagem);
+    }
+
+    public int lerOpcao() {
         while(true) {
             try {
-                return Short.parseShort(scanner.nextLine());
+                return Integer.parseInt(this.scanner.nextLine());
             } catch (NumberFormatException e) {
-                e.printStackTrace();
-                System.out.println("Opção inválida! Digite um número.");
+                System.out.println("Opção inválida! Digite um número.\n");
             }
         }
     }
@@ -71,7 +74,7 @@ public class UI {
     public String lerTexto() {
         String texto = "";
         do {
-            texto = scanner.nextLine();
+            texto = this.scanner.nextLine().trim();
         } while(texto.isEmpty());
 
         return texto;
@@ -82,23 +85,23 @@ public class UI {
 
         while (true) {
             try {
-                return LocalDate.parse(scanner.nextLine(), dateTimeFormatter);
+                return LocalDate.parse(this.scanner.nextLine(), dateTimeFormatter);
             }catch (DateTimeParseException e) {
-                e.printStackTrace();
-                System.out.println("Formato de data inválida! Use dd/MM/yyyy");
+                System.out.println("Formato de data inválida! Use dd/MM/yyyy\n");
             }
         }
     }
 
     public double lerDecimal() {
+        double numero;
         while (true) {
             try {
-                double numero = scanner.nextDouble();
-                scanner.nextLine();
+                numero = this.scanner.nextDouble();
+                this.scanner.nextLine();
                 return numero;
             }catch (InputMismatchException e) {
-                e.printStackTrace();
-                System.out.println("Entrada inválida! Informe um número.");
+                this.scanner.nextLine();
+                System.out.println("Entrada inválida! Informe um número.\n");
             }
         }
     }

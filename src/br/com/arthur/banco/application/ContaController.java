@@ -4,6 +4,7 @@ import br.com.arthur.banco.domain.exception.ClienteInexistenteException;
 import br.com.arthur.banco.domain.exception.ContaInexistenteException;
 import br.com.arthur.banco.domain.model.Cliente;
 import br.com.arthur.banco.domain.model.Conta;
+import br.com.arthur.banco.domain.model.Transacao;
 import br.com.arthur.banco.service.ClienteService;
 import br.com.arthur.banco.service.ContaService;
 
@@ -21,7 +22,7 @@ public class ContaController {
     }
 
     private Cliente buscarCliente() {
-        System.out.print("CPF do cliente: ");
+        this.ui.exibirMensagem("CPF do cliente: ");
         String cpf = this.ui.lerTexto();
 
         return this.clienteService.buscarCliente(cpf);
@@ -29,92 +30,100 @@ public class ContaController {
 
     public void criarContaCorrente() {
         try {
-            System.out.print("Agência: ");
+            this.ui.exibirMensagem("Agência: ");
             String agencia = this.ui.lerTexto();
 
             Cliente cliente = buscarCliente();
 
-            System.out.print("Limite da conta: ");
+            this.ui.exibirMensagem("Limite da conta: ");
             double limite = this.ui.lerDecimal();
 
             Conta conta = this.contaService.criarContaCorrente(agencia, cliente, limite);
-            System.out.println("A conta corrente da agência "+conta.getAgencia()+" e número "+conta.getNumero()+" foi criada com sucesso!");
+            this.ui.exibirMensagem("A conta corrente da agência "+
+                    conta.getAgencia()+
+                    " e número "+
+                    conta.getNumero()+
+                    " foi criada com sucesso!\n");
         }catch (ClienteInexistenteException e) {
-            e.printStackTrace();
-            System.out.println("O cliente não existe!");
+            this.ui.exibirMensagem("O cliente não existe!\n");
         }
         catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Ocorreu um erro ao criar a conta corrente");
+            this.ui.exibirMensagem("Ocorreu um erro ao criar a conta corrente!\n");
         }
     }
 
     public void criarContaPoupanca() {
         try {
-            System.out.print("Agência: ");
+            this.ui.exibirMensagem("Agência: ");
             String agencia = this.ui.lerTexto();
 
             Cliente cliente = buscarCliente();
 
             Conta conta = this.contaService.criarContaPoupanca(agencia, cliente);
-            System.out.println("A conta poupança da agência "+conta.getAgencia()+" e número "+conta.getNumero()+" foi criada com sucesso!");
+            this.ui.exibirMensagem("A conta poupança da agência "+
+                    conta.getAgencia()+
+                    " e número "+
+                    conta.getNumero()+
+                    " foi criada com sucesso!\n");
         }catch (ClienteInexistenteException e) {
-            e.printStackTrace();
-            System.out.println("O cliente não existe!");
+            this.ui.exibirMensagem("O cliente não existe!\n");
         }
         catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Ocorreu um erro ao criar a conta poupança");
+            this.ui.exibirMensagem("Ocorreu um erro ao criar a conta poupança!\n");
         }
     }
 
     public void removerConta() {
         try {
-            System.out.print("Informe o número da conta que será removida: ");
+            this.ui.exibirMensagem("Informe o número da conta que será removida: ");
             String numero = this.ui.lerTexto();
 
             Conta conta = this.contaService.removerConta(numero);
-            System.out.println("A conta de número "+conta.getNumero()+" foi removida com sucesso!");
+            this.ui.exibirMensagem("A conta de número "+conta.getNumero()+" foi removida com sucesso!\n");
         }catch (ContaInexistenteException e) {
-            e.printStackTrace();
-            System.out.println("A conta não existe!");
+            this.ui.exibirMensagem("A conta não existe!\n");
         }catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Ocorreu um erro ao remover o cliente!");
+            this.ui.exibirMensagem("Ocorreu um erro ao remover o cliente!\n");
         }
     }
 
-    public void consultarSado() {
+    public void consultarSaldo() {
         try {
-            System.out.print("Informe o número da conta que você deseja consultar o saldo: ");
+            this.ui.exibirMensagem("Informe o número da conta que você deseja consultar o saldo: ");
             String numero = this.ui.lerTexto();
 
             double saldo = this.contaService.consultarSaldo(numero);
-            System.out.println("O saldo da conta é R$"+saldo);
+            this.ui.exibirMensagem("O saldo da conta é R$"+saldo+"\n");
         }catch (ContaInexistenteException e) {
-            e.printStackTrace();
-            System.out.println("A conta não existe!");
+            this.ui.exibirMensagem("A conta não existe!\n");
         }catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Ocorreu um erro ao consultar o saldo!");
+            this.ui.exibirMensagem("Ocorreu um erro ao consultar o saldo!\n");
         }
     }
 
     public void visualizarExtrato() {
         try {
-            System.out.print("Informe o número da conta que você deseja visualizar o extrato: ");
+            this.ui.exibirMensagem("Informe o número da conta que você deseja visualizar o extrato: ");
             String numero = this.ui.lerTexto();
 
-            List<String> extrato = this.contaService.visualizarExtrato(numero);
-            for(String info : extrato) {
-                System.out.println(info);
+            List<Transacao> extrato = this.contaService.obterExtrato(numero);
+
+            if(extrato.isEmpty()) {
+                this.ui.exibirMensagem("Nenhuma transação foi realizada ainda!\n");
+            }
+
+            else {
+                this.ui.exibirMensagem("Extrato da conta:\n");
+                for(Transacao transacao : extrato) {
+                    this.ui.exibirMensagem(transacao.toString()+"\n");
+                }
             }
         }catch (ContaInexistenteException e) {
-            e.printStackTrace();
-            System.out.println("A conta não existe!");
+            this.ui.exibirMensagem("A conta não existe!\n");
         }catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Ocorreu um erro ao visualizar o extrato!");
+            this.ui.exibirMensagem("Ocorreu um erro ao visualizar o extrato!\n");
         }
     }
 }
+
+

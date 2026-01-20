@@ -2,29 +2,28 @@ package br.com.arthur.banco.domain.model;
 
 import br.com.arthur.banco.domain.exception.SaldoInsuficienteException;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-
 public class ContaPoupanca extends Conta {
-    private static final double RENDIMENTO_PERCENTUAL = 0.5;
+    private static final double RENDIMENTO_PERCENTUAL = 0.005;
 
-    public ContaPoupanca(String numero, String agencia, double saldo, Cliente cliente) {
-        super(numero, agencia, saldo, cliente);
+    public ContaPoupanca(String numero, String agencia, Cliente cliente) {
+        super(numero, agencia, cliente);
     }
 
     @Override
-    public void sacar(double valor) throws SaldoInsuficienteException {
+    public void sacar(double valor) {
         verificaValor(valor);
 
-        if(valor > saldo) {
+        if(valor > this.saldo) {
             throw new SaldoInsuficienteException("O valor fornecido para sacar é maior do que o permitido!");
         }
 
         this.saldo -= valor;
-        this.transacoes.add(new Transacao("Saque Conta Poupança", valor, LocalDate.now(ZoneId.of("America/Sao_Paulo"))));
+        registrarTransacao(TipoTransacao.SAQUE, valor);
     }
 
     public void aplicarRendimento() {
-        this.saldo += this.saldo * RENDIMENTO_PERCENTUAL;
+        double rendimento = this.saldo * RENDIMENTO_PERCENTUAL;
+        this.saldo += rendimento;
+        registrarTransacao(TipoTransacao.RENDIMENTO_POUPANCA, rendimento);
     }
 }

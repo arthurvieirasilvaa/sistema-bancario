@@ -6,14 +6,18 @@ import java.util.List;
 
 public class Cliente {
     private String nome;
-    private String cpf;
+    private final String cpf;
     private LocalDate dataNascimento;
-    private List<Conta> contas = new ArrayList<>();
+    private final List<Conta> contas = new ArrayList<>();
 
     public Cliente(String nome, String cpf, LocalDate dataNascimento) {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
+    }
+
+    public void adicionarConta(Conta conta) {
+        this.contas.add(conta);
     }
 
     public String getNome() {
@@ -28,10 +32,6 @@ public class Cliente {
         return this.cpf;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
     public LocalDate getDataNascimento() {
         return this.dataNascimento;
     }
@@ -41,10 +41,6 @@ public class Cliente {
     }
 
     public List<Conta> getContas() {
-        return this.contas;
-    }
-
-    public void setContas(List<Conta> contas) {
-        this.contas = contas;
+        return List.copyOf(this.contas);
     }
 }

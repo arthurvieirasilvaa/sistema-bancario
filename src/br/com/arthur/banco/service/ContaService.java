@@ -7,19 +7,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContaService {
-    private List<Conta> contas = new ArrayList<>();
+    private final List<Conta> contas = new ArrayList<>();
+    private static int SEQUENCIA_IDS = 1;
+
+    private String gerarNumeroConta() {
+        return String.valueOf(SEQUENCIA_IDS++);
+    }
 
     public Conta criarContaCorrente(String agencia, Cliente cliente, double limite) {
-        double numero = (int) (Math.random() * 100);
-        ContaCorrente contaCorrente = new ContaCorrente(String.valueOf(numero), agencia, 0, cliente, limite);
+        String numero = gerarNumeroConta();
+        ContaCorrente contaCorrente = new ContaCorrente(numero, agencia, cliente, limite);
         contas.add(contaCorrente);
 
         return contaCorrente;
     }
 
     public Conta criarContaPoupanca(String agencia, Cliente cliente) {
-        double numero = (int) (Math.random() * 100);
-        ContaPoupanca contaPoupanca = new ContaPoupanca(String.valueOf(numero), agencia,0, cliente);
+        String numero = gerarNumeroConta();
+        ContaPoupanca contaPoupanca = new ContaPoupanca(numero, agencia, cliente);
         contas.add(contaPoupanca);
 
         return contaPoupanca;
@@ -46,14 +51,8 @@ public class ContaService {
         return conta.getSaldo();
     }
 
-    public List<String> visualizarExtrato(String numero) {
+    public List<Transacao> obterExtrato(String numero) {
         Conta conta = buscarConta(numero);
-        List<String> extrato = new ArrayList<>();
-
-        for(Transacao transacao : conta.getTransacoes()) {
-            extrato.add(transacao.toString());
-        }
-
-        return extrato;
+        return conta.getTransacoes();
     }
 }

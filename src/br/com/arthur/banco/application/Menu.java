@@ -21,7 +21,7 @@ public class Menu {
 
         while(executando) {
             ui.exibirMenuPrincipal();
-            short opcao = ui.lerOpcao();
+            int opcao = ui.lerOpcao();
 
             switch(opcao) {
                 case 1:
@@ -37,7 +37,7 @@ public class Menu {
                     executando = false;
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    this.ui.exibirMensagem("Opção inválida!\n");
             }
         }
     }
@@ -47,7 +47,7 @@ public class Menu {
 
         while(isMenuClientesAberto) {
             ui.exibirMenuClientes();
-            short opcao = ui.lerOpcao();
+            int opcao = ui.lerOpcao();
 
             switch(opcao) {
                 case 1:
@@ -63,7 +63,7 @@ public class Menu {
                     isMenuClientesAberto = false;
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    this.ui.exibirMensagem("Opção inválida!\n");
             }
         }
     }
@@ -73,7 +73,7 @@ public class Menu {
 
         while(isMenuContasAberto) {
             ui.exibirMenuContas();
-            short opcao = ui.lerOpcao();
+            int opcao = ui.lerOpcao();
 
             switch(opcao) {
                 case 1:
@@ -86,7 +86,7 @@ public class Menu {
                     contaController.removerConta();
                     break;
                 case 4:
-                    contaController.consultarSado();
+                    contaController.consultarSaldo();
                     break;
                 case 5:
                     contaController.visualizarExtrato();
@@ -95,7 +95,7 @@ public class Menu {
                     isMenuContasAberto = false;
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    this.ui.exibirMensagem("Opção inválida!\n");
             }
         }
     }
@@ -105,7 +105,7 @@ public class Menu {
 
         while(isMenuTransacoesAberto) {
             ui.exibirMenuTransacoes();
-            short opcao = ui.lerOpcao();
+            int opcao = ui.lerOpcao();
 
             switch(opcao) {
                 case 1:
@@ -121,7 +121,7 @@ public class Menu {
                     isMenuTransacoesAberto = false;
                     break;
                 default:
-                    System.out.println("Opção inválida!");
+                    this.ui.exibirMensagem("Opção inválida!\n");
             }
         }
     }

@@ -18,61 +18,55 @@ public class ClienteController {
 
     public void cadastrarCliente() {
         try {
-            System.out.print("Nome: ");
+            this.ui.exibirMensagem("Nome: ");
             String nome = this.ui.lerTexto();
 
-            System.out.print("CPF: ");
+            this.ui.exibirMensagem("CPF: ");
             String cpf = this.ui.lerTexto();
 
-            System.out.print("Data de nascimento (dd/MM/yyyy): ");
+            this.ui.exibirMensagem("Data de nascimento (dd/MM/yyyy): ");
             LocalDate dataNascimento = this.ui.lerData();
 
             Cliente cliente = this.clienteService.cadastrarCliente(nome, cpf, dataNascimento);
-            System.out.println("Cliente "+cliente.getNome()+" cadastrado com sucesso!");
+            this.ui.exibirMensagem("Cliente "+cliente.getNome()+" cadastrado com sucesso!\n");
         }catch (CpfDuplicadoException e) {
-            e.printStackTrace();
-            System.out.println("O CPF informado já existe!");
+            this.ui.exibirMensagem("O CPF informado já existe!\n");
         }
         catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Ocorreu um erro ao cadastrar o cliente!");
+            this.ui.exibirMensagem("Ocorreu um erro ao cadastrar o cliente!\n");
         }
     }
 
     public void removerCliente() {
         try {
-            System.out.print("Informe o CPF do cliente que você deseja remover: ");
+            this.ui.exibirMensagem("Informe o CPF do cliente que você deseja remover: ");
             String cpf = this.ui.lerTexto();
 
             Cliente cliente = this.clienteService.removerCliente(cpf);
-            System.out.println("Cliente "+cliente.getNome()+" removido com sucesso!");
+            this.ui.exibirMensagem("Cliente "+cliente.getNome()+" removido com sucesso!\n");
         }catch (ClienteInexistenteException e) {
-            e.printStackTrace();
-            System.out.println("O cliente não existe!");
+            this.ui.exibirMensagem("O cliente não existe!\n");
         }
         catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Ocorreu um erro ao remover o cliente!");
+            this.ui.exibirMensagem("Ocorreu um erro ao remover o cliente!\n");
         }
     }
 
     public void visualizarDadosCliente() {
         try {
-            System.out.print("Informe o CPF do cliente que você obter os dados: ");
+            this.ui.exibirMensagem("Informe o CPF do cliente que você obter os dados: ");
             String cpf = this.ui.lerTexto();
 
             Cliente cliente = this.clienteService.buscarCliente(cpf);
-            System.out.println("Dados do cliente:");
-            System.out.println("Nome: "+cliente.getNome());
-            System.out.println("CPF: "+cliente.getCpf());
-            System.out.println("Data de nascimento: "+cliente.getDataNascimento());
+            this.ui.exibirMensagem("Dados do cliente:\n");
+            this.ui.exibirMensagem("Nome: "+cliente.getNome()+"\n");
+            this.ui.exibirMensagem("CPF: "+cliente.getCpf()+"\n");
+            this.ui.exibirMensagem("Data de nascimento: "+cliente.getDataNascimento()+"\n");
         }catch (ClienteInexistenteException e) {
-            e.printStackTrace();
-            System.out.println("O cliente não existe!");
+            this.ui.exibirMensagem("O cliente não existe!\n");
         }
         catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Ocorreu um erro ao buscar o cliente!");
+            this.ui.exibirMensagem("Ocorreu um erro ao buscar o cliente!\n");
         }
     }
 }

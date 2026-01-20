@@ -1,6 +1,5 @@
 package br.com.arthur.banco.service;
 
-import br.com.arthur.banco.domain.exception.SaldoInsuficienteException;
 import br.com.arthur.banco.domain.model.Conta;
 
 public class TransacaoService {
@@ -8,17 +7,15 @@ public class TransacaoService {
         conta.depositar(valor);
     }
 
-    public void sacar(Conta conta, double valor) throws SaldoInsuficienteException {
-        if(valor > conta.getSaldo()) {
-            throw new SaldoInsuficienteException("O valor fornecido para saque é maior do que o saldo!");
-        }
+    public void sacar(Conta conta, double valor) {
         conta.sacar(valor);
     }
 
-    public void transferir(Conta origem, Conta destino, double valor) throws SaldoInsuficienteException {
-        if(valor > origem.getSaldo()) {
-            throw new SaldoInsuficienteException("O valor fornecido para saque é maior do que o saldo!");
+    public void transferir(Conta origem, Conta destino, double valor) {
+        if(origem.equals(destino)) {
+            throw new IllegalArgumentException("A conta de origem deve ser diferente da de destino!");
         }
+
         origem.sacar(valor);
         destino.depositar(valor);
     }

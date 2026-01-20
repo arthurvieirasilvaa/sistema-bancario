@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteService {
-    private List<Cliente> clientes = new ArrayList<>();
+    private final List<Cliente> clientes = new ArrayList<>();
 
-    public void validarCpf(String cpf) {
+    private void validarCpf(String cpf) {
         for(Cliente cliente : this.clientes) {
             if(cliente.getCpf().equals(cpf)) {
                 throw new CpfDuplicadoException("Já existe um cliente cadastrado com o CPF "+cpf);
@@ -45,10 +45,6 @@ public class ClienteService {
     }
 
     public List<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
+        return List.copyOf(this.clientes);
     }
 }

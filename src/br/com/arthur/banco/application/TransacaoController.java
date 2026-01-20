@@ -21,82 +21,69 @@ public class TransacaoController {
 
     public void depositar() {
         try {
-            System.out.print("Número da conta: ");
+            this.ui.exibirMensagem("Número da conta: ");
             String numero = this.ui.lerTexto();
 
             Conta conta = this.contaService.buscarConta(numero);
 
-            System.out.print("Valor a ser depositado: R$");
+            this.ui.exibirMensagem("Valor a ser depositado: R$");
             double valor = this.ui.lerDecimal();
 
             this.transacaoService.depositar(conta, valor);
-            System.out.println("Depósito de R$"+valor+" realizado com sucesso!");
+            this.ui.exibirMensagem("Depósito de R$"+valor+" realizado com sucesso!\n");
         }catch (ContaInexistenteException e) {
-            e.printStackTrace();
-            System.out.println("A conta não existe!");
+            this.ui.exibirMensagem("A conta não existe!\n");
         }catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            System.out.println("O valor depositado está inválido!");
+            this.ui.exibirMensagem("O valor depositado está inválido ou as contas de origem e destino são iguais!\n");
         }catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Ocorreu um erro ao realizar o depósito!");
+            this.ui.exibirMensagem("Ocorreu um erro ao realizar o depósito!\n");
         }
     }
 
     public void sacar() {
         try {
-            System.out.print("Número da conta: ");
+            this.ui.exibirMensagem("Número da conta: ");
             String numero = this.ui.lerTexto();
 
             Conta conta = this.contaService.buscarConta(numero);
 
-            System.out.print("Valor a ser sacado: R$");
+            this.ui.exibirMensagem("Valor a ser sacado: R$");
             double valor = this.ui.lerDecimal();
 
-            try {
-                this.transacaoService.sacar(conta, valor);
-                System.out.println("Saque de R$"+valor+" realizado com sucesso!");
-            }catch (SaldoInsuficienteException e) {
-                e.printStackTrace();
-                System.out.println("Saldo insuficiente!");
-            }
+            this.transacaoService.sacar(conta, valor);
+            this.ui.exibirMensagem("Saque de R$"+valor+" realizado com sucesso!\n");
         }catch (ContaInexistenteException e) {
-            e.printStackTrace();
-            System.out.println("A conta não existe!");
+            this.ui.exibirMensagem("A conta não existe!\n");
+        }catch (SaldoInsuficienteException e) {
+            this.ui.exibirMensagem("Saldo insuficiente!\n");
         }catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Ocorreu um erro ao realizar o saque!");
+            this.ui.exibirMensagem("Ocorreu um erro ao realizar o saque!\n");
         }
     }
 
     public void realizarTransferencia() {
         try {
-            System.out.println("Número da conta de origem (saque): ");
+            this.ui.exibirMensagem("Número da conta de origem (saque): ");
             String numeroOrigem = this.ui.lerTexto();
             Conta origem = this.contaService.buscarConta(numeroOrigem);
 
-            System.out.println("Número da conta de destino (depósito): ");
+            this.ui.exibirMensagem("Número da conta de destino (depósito): ");
             String numeroDestino = this.ui.lerTexto();
             Conta destino = this.contaService.buscarConta(numeroDestino);
 
-            System.out.println("Valor a ser transferido: R$");
+            this.ui.exibirMensagem("Valor a ser transferido: R$");
             double valor = this.ui.lerDecimal();
 
-            try {
-                this.transacaoService.transferir(origem, destino, valor);
-            }catch (SaldoInsuficienteException e) {
-                e.printStackTrace();
-                System.out.println("Saldo insuficiente!");
-            }
+            this.transacaoService.transferir(origem, destino, valor);
+            this.ui.exibirMensagem("Transferência de R$"+valor+" realizada com sucesso!\n");
         }catch (ContaInexistenteException e) {
-            e.printStackTrace();
-            System.out.println("A conta não existe!");
+            this.ui.exibirMensagem("A conta não existe!\n");
         }catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            System.out.println("O valor transferido está inválido!");
+            this.ui.exibirMensagem("O valor transferido está inválido!\n");
+        }catch (SaldoInsuficienteException e) {
+            this.ui.exibirMensagem("Saldo insuficiente!\n");
         }catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Ocorreu um erro ao realizar a transferência!");
+            this.ui.exibirMensagem("Ocorreu um erro ao realizar a transferência!\n");
         }
     }
 }

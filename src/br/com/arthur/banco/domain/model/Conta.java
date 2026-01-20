@@ -1,7 +1,5 @@
 package br.com.arthur.banco.domain.model;
 
-import br.com.arthur.banco.domain.exception.SaldoInsuficienteException;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -11,67 +9,53 @@ public abstract class Conta {
     protected String numero;
     protected String agencia;
     protected double saldo;
-    protected Cliente cliente;
+    protected final Cliente cliente;
     protected List<Transacao> transacoes = new ArrayList<>();
 
-    public Conta(String numero, String agencia, double saldo, Cliente cliente) {
+    public Conta(String numero, String agencia, Cliente cliente) {
         this.numero = numero;
         this.agencia = agencia;
-        this.saldo = saldo;
+        this.saldo = 0;
         this.cliente = cliente;
+
+        this.cliente.adicionarConta(this);
     }
     
-    public void verificaValor(double valor) {
+    protected void verificaValor(double valor) {
         if(valor <= 0) {
-            throw new IllegalArgumentException("O valor depositado deve ser maior do que 0");
+            throw new IllegalArgumentException("O valor deve ser maior do que 0");
         }
+    }
+
+    protected void registrarTransacao(TipoTransacao tipo, double valor) {
+        this.transacoes.add(new Transacao(tipo, valor, LocalDate.now(ZoneId.of("America/Sao_Paulo"))));
     }
 
     public void depositar(double valor) {
         verificaValor(valor);
         this.saldo += valor;
-        transacoes.add(new Transacao("Depósito", valor, LocalDate.now(ZoneId.of("America/Sao_Paulo"))));
+        registrarTransacao(TipoTransacao.DEPOSITO, valor);
     }
 
-    public abstract void sacar(double valor) throws SaldoInsuficienteException;
+    public abstract void sacar(double valor);
 
     public String getNumero() {
         return numero;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
     }
 
     public String getAgencia() {
         return agencia;
     }
 
-    public void setAgencia(String agencia) {
-        this.agencia = agencia;
-    }
-
     public double getSaldo() {
         return saldo;
-    }
-
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
     }
 
     public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
     public List<Transacao> getTransacoes() {
-        return this.transacoes;
-    }
-
-    public void setTransacoes(List<Transacao> transacoes) {
-        this.transacoes = transacoes;
+        return List.copyOf(this.transacoes);
     }
 }

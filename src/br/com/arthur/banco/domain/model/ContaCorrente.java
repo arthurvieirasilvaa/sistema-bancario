@@ -2,19 +2,20 @@ package br.com.arthur.banco.domain.model;
 
 import br.com.arthur.banco.domain.exception.SaldoInsuficienteException;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-
 public class ContaCorrente extends Conta {
     private double limite;
 
-    public ContaCorrente(String numero, String agencia, double saldo, Cliente cliente, double limite) {
-        super(numero, agencia, saldo, cliente);
+    public ContaCorrente(String numero, String agencia, Cliente cliente, double limite) {
+        super(numero, agencia, cliente);
+
+        if(limite < 0) {
+            throw new IllegalArgumentException("O limite não pode ser negativo!");
+        }
         this.limite = limite;
     }
 
     @Override
-    public void sacar(double valor) throws SaldoInsuficienteException {
+    public void sacar(double valor) {
         verificaValor(valor);
 
         if(valor > this.limite + this.saldo) {
@@ -22,14 +23,10 @@ public class ContaCorrente extends Conta {
         }
 
         this.saldo -= valor;
-        this.transacoes.add(new Transacao("Saque Conta Corrente", valor, LocalDate.now(ZoneId.of("America/Sao_Paulo"))));
+        registrarTransacao(TipoTransacao.SAQUE, valor);
     }
 
     public double getLimite() {
         return limite;
-    }
-
-    public void setLimite(double limite) {
-        this.limite = limite;
     }
 }
