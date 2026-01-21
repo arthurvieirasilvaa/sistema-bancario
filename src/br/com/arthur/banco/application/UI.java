@@ -42,6 +42,7 @@ public class UI {
         System.out.println("3) Remover conta");
         System.out.println("4) Consultar saldo");
         System.out.println("5) Visualizar extrato");
+        System.out.println("6) Aplicar rendimento mensal em conta poupança");
         System.out.println("-1) Voltar");
         System.out.println("------------------------------------");
         System.out.print("Digite uma opção: ");

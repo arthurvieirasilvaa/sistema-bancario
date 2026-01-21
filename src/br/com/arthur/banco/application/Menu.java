@@ -91,6 +91,9 @@ public class Menu {
                 case 5:
                     contaController.visualizarExtrato();
                     break;
+                case 6:
+                    contaController.aplicarRendimentoPoupanca();
+                    break;
                 case UI.OPCAO_VOLTAR:
                     isMenuContasAberto = false;
                     break;

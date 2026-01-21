@@ -124,6 +124,21 @@ public class ContaController {
             this.ui.exibirMensagem("Ocorreu um erro ao visualizar o extrato!\n");
         }
     }
+
+    public void aplicarRendimentoPoupanca() {
+        try {
+            this.ui.exibirMensagem("Informe o número da conta poupança que você deseja aplicar o rendimento mensal: ");
+            String numero = this.ui.lerTexto();
+
+            Conta conta = this.contaService.buscarConta(numero);
+            this.contaService.aplicarRendimentoPoupanca(conta);
+            this.ui.exibirMensagem("Rendimento mensal aplicado com sucesso na conta poupança!\n");
+        }catch (ContaInexistenteException e) {
+            this.ui.exibirMensagem("A conta não existe!\n");
+        }catch (IllegalArgumentException e) {
+            this.ui.exibirMensagem("A conta precisa ser poupança!\n");
+        }catch (Exception e) {
+            this.ui.exibirMensagem("Ocorreu um erro ao aplicar o rendimento na conta poupança!\n");
+        }
+    }
 }
-
-

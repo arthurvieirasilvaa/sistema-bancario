@@ -55,4 +55,11 @@ public class ContaService {
         Conta conta = buscarConta(numero);
         return conta.getTransacoes();
     }
+
+    public void aplicarRendimentoPoupanca(Conta conta) {
+        if(!(conta instanceof ContaPoupanca)) {
+            throw new IllegalArgumentException("O rendimento só é aplicado em uma conta poupança!");
+        }
+        ((ContaPoupanca) conta).aplicarRendimento();
+    }
 }
